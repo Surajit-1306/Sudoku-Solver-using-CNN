@@ -1,4 +1,3 @@
-python 3.11.0
 tensorflow
 opencv-contrib-python
 numpy
