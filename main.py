@@ -82,7 +82,8 @@ def upload_image():
 
         flat_list=board * position_val
         print(flat_list)
-
+    else:
+        print("Please give a clear Sudoku image.")
     img_solved_num=img_blank.copy()
     img_solved_num=display_numbers(img_solved_num,flat_list,color=(128,277,0))
 
