@@ -3,4 +3,4 @@ opencv-contrib-python
 numpy
 sklearn 
 matplotlib
-python3-tk
+tk
