@@ -1,7 +1,6 @@
 tensorflow
 opencv-contrib-python
 numpy
-
 sklearn 
 matplotlib
 tkinter
