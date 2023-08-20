@@ -1,6 +1,6 @@
 tensorflow
 opencv-contrib-python
 numpy
-sklearn 
+scikit-learn 
 matplotlib
 tk
