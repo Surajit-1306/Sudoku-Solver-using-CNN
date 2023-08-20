@@ -11,14 +11,6 @@ def preprocess(img):
 
     img_thresh=cv.adaptiveThreshold(img_blur, 255, 1,1, 11, 2)
 
-    # img_inverted= cv.bitwise_not(img_thresh, 0)
-    #
-    # kernel= cv.getStructuringElement(cv.MORPH_RECT, (1,1))
-    #
-    # img_morph = cv.morphologyEx(img_inverted, cv.MORPH_OPEN, kernel)
-    #
-    # img_dilate=cv.dilate(img_morph,kernel,iterations=1)
-
     preprocessed_img=img_thresh
 
     return preprocessed_img
@@ -65,10 +57,6 @@ def getPrediction(boxes,model):
     for image in boxes:
 
         img=cv.resize(image,(32,32))
-        #img=preprocess(img)#marked
-        # img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-        # img = cv.GaussianBlur(img, (3, 3), 0)
-        # img_thresh = cv.adaptiveThreshold(img, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY, 11, 2)
         img = tf.keras.utils.normalize(img, axis=1)
         img=np.array(img).reshape(-1,32,32,1)
         #prediction
@@ -82,27 +70,7 @@ def getPrediction(boxes,model):
         else:
             result.append(0)
     return result
-########################################################################
-# def process(img):#marked
-#
-#     img_gray=cv.cvtColor(img,cv.COLOR_BGR2GRAY)
-#
-#     img_blur=cv.GaussianBlur(img_gray,(3,3),0)
-#
-#     img_thresh=cv.adaptiveThreshold(img_blur, 255, 1,1, 11, 2)
-#
-#     #img_inverted= cv.bitwise_not(img_thresh, 0)
-#
-#     kernel= cv.getStructuringElement(cv.MORPH_RECT, (1,1))
-#
-#     img_morph = cv.morphologyEx(img_thresh, cv.MORPH_OPEN, kernel)
-#
-#     img_dilate=cv.dilate(img_morph,kernel,iterations=1)
-#
-#     processed_img=img_dilate
-#
-#     return processed_img
-################################################################################
+
 
 def get_grid_lines(img, length=10):
     horizontal = grid_line_helper(img, 1, length)
@@ -144,7 +112,7 @@ def create_grid_mask(vertical, horizontal):
     return mask
 
 def draw_lines(img, lines):
-    # https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_houghlines/py_houghlines.html
+      
     clone = img.copy()
     lines = np.squeeze(lines)
 
