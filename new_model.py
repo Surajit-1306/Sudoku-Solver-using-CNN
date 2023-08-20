@@ -41,7 +41,7 @@ print("Total classified images:",class_no.shape[0])
 #split the data
 
 x_train,x_test,y_train,y_test=train_test_split(images,class_no,test_size=test_ratio)
-#x_train,x_val,y_train,y_val=train_test_split(x_train,y_train,test_size=test_ratio)
+
 print(x_train.shape)
 
 num_of_samples=[]
@@ -59,35 +59,21 @@ def preprocessing(img):
     img=cv.equalizeHist(img)
     img=img/255
     return img
-# img=preprocessing(x_train[45])
-# cv.imshow("img",img)
-# cv.waitKey(0)
 
 x_train=np.array(list(map(preprocessing,x_train)))
 x_test=np.array(list(map(preprocessing,x_test)))
-#x_val=np.array(list(map(preprocessing,x_val)))
+
 
 
 x_train=x_train.reshape(x_train.shape[0],x_train.shape[1],x_train.shape[2],1)
 x_test=x_test.reshape(x_test.shape[0],x_test.shape[1],x_test.shape[2],1)
-#x_val=x_val.reshape(x_val.shape[0],x_val.shape[1],x_val.shape[2],1)
-# img=x_train[49]
-# cv.imshow("img",img)
-# cv.waitKey(0)
+
 print(x_train[49].shape)
 
-# datagen = ImageDataGenerator(
-#     rotation_range=10,
-#     width_shift_range=0.1,
-#     height_shift_range=0.1,
-#     zoom_range=0.1,
-#     horizontal_flip=False
-# )
-#
-# datagen.fit(x_train)
+
 print(y_train[0])
 y_train=to_categorical(y_train-1, noOfClasses)
-#y_val=to_categorical(y_val-1,noOfClasses)
+
 y_test=to_categorical(y_test-1,noOfClasses)
 print(y_train[0])
 def my_model():
@@ -102,19 +88,17 @@ def my_model():
   ####################################
 
     model.add(Conv2D(noOfFilters,sizeOfFilter1,input_shape=(32,32,1),activation='relu')) #only for first convolutional layer to mentain input layer size
-    #model.add(Activation("relu")) ##activation func
-    #model.add(MaxPooling2D(pool_size=(2,2))) #maxpooling
-
+    
 
     model.add(Conv2D(noOfFilters,sizeOfFilter1,activation='relu')) #only for first convolutional layer to mentain input layer size
-    #model.add(Activation("relu")) ##activation func
+  
     model.add(MaxPooling2D(pool_size=sizeOfPool))
 
 
     model.add(Conv2D(noOfFilters//2,sizeOfFilter2,activation='relu')) #only for first convolutional layer to mentain input layer size
-    #model.add(Activation("relu")) ##activation func
+ 
     model.add(Conv2D(noOfFilters // 2, sizeOfFilter2,activation='relu'))  # only for first convolutional layer to mentain input layer size
-    #model.add(Activation("relu"))  ##activation func
+  
     model.add(MaxPooling2D(pool_size=sizeOfPool))
     model.add(Dropout(0.5))
 
@@ -122,18 +106,14 @@ def my_model():
 
     model.add(Flatten())
     model.add(Dense(noOfNode,activation='relu'))
-    #model.add(Activation("relu"))
+   
     model.add(Dropout(0.5))
 
-    # #Fully connected layer-2
-    #
-    # model.add(Dense(32))
-    # model.add(Activation("relu"))
-
+ 
     #Last Fully Connected layer
 
     model.add(Dense(9,activation='softmax'))
-    #model.add(Activation("softmax"))
+   
 
     model.summary()
 
@@ -143,8 +123,7 @@ def my_model():
     return model
 
 model=my_model()
-# Compile the model
-#model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
 
 # Train the model using the augmented data
 history=model.fit(x_train,y_train,epochs=epochs,validation_split=0.2)
