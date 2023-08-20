@@ -1,7 +1,7 @@
 tensorflow
 opencv-contrib-python
 numpy
-pickle
+
 sklearn 
 matplotlib
 tkinter
