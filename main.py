@@ -79,7 +79,7 @@ def upload_image():
             pass
 
         board=np.asarray(board)
-
+        print(board)
         flat_list=board * position_val
         print(flat_list)
     else:
